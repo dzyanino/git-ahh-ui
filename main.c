@@ -1,7 +1,7 @@
 #define CLAY_IMPLEMENTATION // ok so first the clay implementation macro
 
-#include "clay.h" // then import clay just after
-#include "renderers/raylib.c" // import the renderer
+#include "lib/clay.h" // then import clay just after
+#include "lib/renderers/raylib.c" // import the renderer
 
 typedef enum : uint16_t {
   M_FONT_REGULAR = 0,
