@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://json.schemastore.org/clang-format-21.x.json
+---
+BasedOnStyle: WebKit
+IndentWidth: 2
+BreakBeforeBraces: Attach
+IndentCaseLabels: true
+AlignAfterOpenBracket: BlockIndent
+ContinuationIndentWidth: 2
+BinPackArguments: false
+BinPackParameters: OnePerLine
+Cpp11BracedListStyle: false
+---
