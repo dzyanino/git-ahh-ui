@@ -4,6 +4,7 @@
 #include "lib/renderers/raylib.c" // import the renderer
 
 #include "include/theme/colors.h"
+#include "include/theme/fonts.h"
 
 #include "include/welcome/welcome.h"
 
@@ -41,15 +42,19 @@ int main(void) {
     (Clay_ErrorHandler) { HandleClayErrors }
   ); // initialize clay with the arena (memory), and its default dimensions and the error handler (catcher)
 
-  Font fonts[8];
-  fonts[0] = LoadFont("assets/fonts/BricolageGrotesque-Regular.ttf");
-  fonts[1] = LoadFont("assets/fonts/BricolageGrotesque-SemiBold.ttf");
-  fonts[2] = LoadFont("assets/fonts/BricolageGrotesque-Bold.ttf");
-  fonts[3] = LoadFont("assets/fonts/Fraunces-Bold.ttf");
-  fonts[4] = LoadFont("assets/fonts/Fraunces-Italic.ttf");
-  fonts[5] = LoadFont("assets/fonts/SpaceMono-Regular.ttf");
-  fonts[6] = LoadFont("assets/fonts/SpaceMono-Bold.ttf");
-  fonts[7] = LoadFont("assets/fonts/SpaceMono-Italic.ttf");
+  Font fonts[FONT_COUNT];
+  fonts[0] = LoadFontEx("assets/fonts/BricolageGrotesque-Regular.ttf", 48, 0, 0);
+  fonts[1] = LoadFontEx("assets/fonts/BricolageGrotesque-SemiBold.ttf", 48, 0, 0);
+  fonts[2] = LoadFontEx("assets/fonts/BricolageGrotesque-Bold.ttf", 48, 0, 0);
+  fonts[3] = LoadFontEx("assets/fonts/Fraunces-Bold.ttf", 48, 0, 0);
+  fonts[4] = LoadFontEx("assets/fonts/Fraunces-Italic.ttf", 48, 0, 0);
+  fonts[5] = LoadFontEx("assets/fonts/SpaceMono-Regular.ttf", 48, 0, 0);
+  fonts[6] = LoadFontEx("assets/fonts/SpaceMono-Bold.ttf", 48, 0, 0);
+  fonts[7] = LoadFontEx("assets/fonts/SpaceMono-Italic.ttf", 48, 0, 0);
+
+  for (int i = 0; i < FONT_COUNT; i++) {
+    SetTextureFilter(fonts[i].texture, TEXTURE_FILTER_BILINEAR);
+  } // fix graininess in text when put below the fontSize of the LoadFont function's fontSize parameter
 
   Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
   // call this function to tell clay how to properly size the fonts
