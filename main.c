@@ -3,12 +3,9 @@
 #include "lib/clay.h" // then import clay just after
 #include "lib/renderers/raylib.c" // import the renderer
 
-typedef enum : uint16_t {
-  M_FONT_REGULAR = 0,
-  M_FONT_SEMIBOLD = 1,
-  M_FONT_BOLD = 2,
-  M_FONT_ITALIC = 3,
-} FontID; // just for convenience
+#include "include/theme/colors.h"
+
+#include "include/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
   printf("%s", error_data.errorText.chars);
@@ -44,11 +41,15 @@ int main(void) {
     (Clay_ErrorHandler) { HandleClayErrors }
   ); // initialize clay with the arena (memory), and its default dimensions and the error handler (catcher)
 
-  Font fonts[4];
-  fonts[0] = LoadFont("assets/fonts/Fraunces-Regular.ttf");
-  fonts[1] = LoadFont("assets/fonts/Fraunces-SemiBold.ttf");
-  fonts[2] = LoadFont("assets/fonts/Fraunces-Bold.ttf");
-  fonts[3] = LoadFont("assets/fonts/Fraunces-Italic.ttf");
+  Font fonts[8];
+  fonts[0] = LoadFont("assets/fonts/BricolageGrotesque-Regular.ttf");
+  fonts[1] = LoadFont("assets/fonts/BricolageGrotesque-SemiBold.ttf");
+  fonts[2] = LoadFont("assets/fonts/BricolageGrotesque-Bold.ttf");
+  fonts[3] = LoadFont("assets/fonts/Fraunces-Bold.ttf");
+  fonts[4] = LoadFont("assets/fonts/Fraunces-Italic.ttf");
+  fonts[5] = LoadFont("assets/fonts/SpaceMono-Regular.ttf");
+  fonts[6] = LoadFont("assets/fonts/SpaceMono-Bold.ttf");
+  fonts[7] = LoadFont("assets/fonts/SpaceMono-Italic.ttf");
 
   Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
   // call this function to tell clay how to properly size the fonts
@@ -74,21 +75,9 @@ int main(void) {
             .height = CLAY_SIZING_GROW(0) },
           .padding = CLAY_PADDING_ALL(16),
           .childGap = 16 },
-        .backgroundColor = { 250, 250, 255, 255 } }
+        .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
     ) {
-      CLAY(
-        CLAY_ID("sidebar"),
-        { .layout = {
-            .layoutDirection = CLAY_TOP_TO_BOTTOM,
-            .sizing = {
-              .width = CLAY_SIZING_FIXED(300),
-              .height = CLAY_SIZING_GROW(0) },
-            .padding = CLAY_PADDING_ALL(16),
-            .childGap = 16 },
-          .backgroundColor = (Clay_Color) { 224, 215, 210, 255 } }
-      ) {
-        CLAY_TEXT(CLAY_STRING("This is the sidebar"), { .fontId = M_FONT_BOLD, .fontSize = 24, .textColor = { 255, 255, 255, 255 } });
-      }
+      LayoutWelcome();
     }
 
     Clay_RenderCommandArray render_commands = Clay_EndLayout(delta_time);
