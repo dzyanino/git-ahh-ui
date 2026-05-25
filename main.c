@@ -3,12 +3,10 @@
 #include "lib/clay.h" // then import clay just after
 #include "lib/renderers/raylib.c" // import the renderer
 
-typedef enum : uint16_t {
-  M_FONT_REGULAR = 0,
-  M_FONT_SEMIBOLD = 1,
-  M_FONT_BOLD = 2,
-  M_FONT_ITALIC = 3,
-} FontID; // just for convenience
+#include "include/theme/colors.h"
+#include "include/theme/fonts.h"
+
+#include "include/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
   printf("%s", error_data.errorText.chars);
@@ -44,11 +42,19 @@ int main(void) {
     (Clay_ErrorHandler) { HandleClayErrors }
   ); // initialize clay with the arena (memory), and its default dimensions and the error handler (catcher)
 
-  Font fonts[4];
-  fonts[0] = LoadFont("assets/fonts/Fraunces-Regular.ttf");
-  fonts[1] = LoadFont("assets/fonts/Fraunces-SemiBold.ttf");
-  fonts[2] = LoadFont("assets/fonts/Fraunces-Bold.ttf");
-  fonts[3] = LoadFont("assets/fonts/Fraunces-Italic.ttf");
+  Font fonts[FONT_COUNT];
+  fonts[0] = LoadFontEx("assets/fonts/BricolageGrotesque-Regular.ttf", 48, 0, 0);
+  fonts[1] = LoadFontEx("assets/fonts/BricolageGrotesque-SemiBold.ttf", 48, 0, 0);
+  fonts[2] = LoadFontEx("assets/fonts/BricolageGrotesque-Bold.ttf", 48, 0, 0);
+  fonts[3] = LoadFontEx("assets/fonts/Fraunces-Bold.ttf", 48, 0, 0);
+  fonts[4] = LoadFontEx("assets/fonts/Fraunces-Italic.ttf", 48, 0, 0);
+  fonts[5] = LoadFontEx("assets/fonts/SpaceMono-Regular.ttf", 48, 0, 0);
+  fonts[6] = LoadFontEx("assets/fonts/SpaceMono-Bold.ttf", 48, 0, 0);
+  fonts[7] = LoadFontEx("assets/fonts/SpaceMono-Italic.ttf", 48, 0, 0);
+
+  for (int i = 0; i < FONT_COUNT; i++) {
+    SetTextureFilter(fonts[i].texture, TEXTURE_FILTER_BILINEAR);
+  } // fix graininess in text when put below the fontSize of the LoadFont function's fontSize parameter
 
   Clay_SetMeasureTextFunction(Raylib_MeasureText, fonts);
   // call this function to tell clay how to properly size the fonts
@@ -74,21 +80,9 @@ int main(void) {
             .height = CLAY_SIZING_GROW(0) },
           .padding = CLAY_PADDING_ALL(16),
           .childGap = 16 },
-        .backgroundColor = { 250, 250, 255, 255 } }
+        .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
     ) {
-      CLAY(
-        CLAY_ID("sidebar"),
-        { .layout = {
-            .layoutDirection = CLAY_TOP_TO_BOTTOM,
-            .sizing = {
-              .width = CLAY_SIZING_FIXED(300),
-              .height = CLAY_SIZING_GROW(0) },
-            .padding = CLAY_PADDING_ALL(16),
-            .childGap = 16 },
-          .backgroundColor = (Clay_Color) { 224, 215, 210, 255 } }
-      ) {
-        CLAY_TEXT(CLAY_STRING("This is the sidebar"), { .fontId = M_FONT_BOLD, .fontSize = 24, .textColor = { 255, 255, 255, 255 } });
-      }
+      LayoutWelcome();
     }
 
     Clay_RenderCommandArray render_commands = Clay_EndLayout(delta_time);
