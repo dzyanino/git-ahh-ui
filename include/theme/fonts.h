@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define FONT_COUNT 8
+
 typedef enum : uint16_t {
   M_FONT_REGULAR = 0,
   M_FONT_SEMIBOLD = 1,
