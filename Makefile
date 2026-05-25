@@ -7,7 +7,7 @@ LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt
 
 TARGET = build/main
 
-SRC = *.c
+SRC = main.c $(shell find include -name "*.c")
 
 $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
