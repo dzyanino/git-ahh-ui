@@ -1,3 +1,4 @@
+#include <stdio.h>
 #define CLAY_IMPLEMENTATION // ok so first the clay implementation macro
 
 #include "lib/clay.h" // then import clay just after
@@ -9,13 +10,8 @@
 #include "include/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
-  printf("%s", error_data.errorText.chars);
-  switch (error_data.errorType) {
-    case CLAY_ERROR_TYPE_INTERNAL_ERROR:
-      printf("Internal error le baba");
-    default:
-      printf("\n====\nJEREO FA MISY RAHA TSY MAZAVA\n====\n");
-  }
+  printf("[ERROR BRO]===>%s\n", error_data.errorText.chars);
+  exit(1);
 } // make an error handler to give it to clay initializer so that i can debug (or catch probably) errors better
 
 /*
