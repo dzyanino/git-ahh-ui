@@ -9,8 +9,8 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
     {
       .layout = {
         .sizing = {
-          .width = CLAY_SIZING_FIXED(80),
-          .height = CLAY_SIZING_FIXED(40)
+          .width = CLAY_SIZING_FIT(0),
+          .height = CLAY_SIZING_FIXED(30)
         },
         .childAlignment = {
           .x = CLAY_ALIGN_X_CENTER,
@@ -18,8 +18,10 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
         },
         .childGap = 8,
         .layoutDirection = CLAY_LEFT_TO_RIGHT,
-        .padding = CLAY_PADDING_ALL(4)
-      }
+        .padding = {16, 16, 8, 8}
+      },
+      .cornerRadius = 5,
+      .backgroundColor = Clay_Hovered() ? theme_colors[M_COLOR_DARK_PRIMARY] : theme_colors[color_id]
     }
   ) {
     CLAY_TEXT(((Clay_String) {.isStaticallyAllocated = false, .length = strlen(label), .chars = label}), {
