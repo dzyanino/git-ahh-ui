@@ -8,6 +8,6 @@ Clay_Color theme_colors[] = {
  [M_COLOR_DARK_PRIMARY] = { 242, 146, 29, 255 },
  [M_COLOR_DARK_BACKGROUND] = { 104, 106, 148, 255 },
  [M_COLOR_TEXT_WHITE] = { 223, 224, 232, 255 },
- [M_COLOR_TEXT_DIM] = { 186, 187, 207, 255 },
+ [M_COLOR_TEXT_DIMMED] = { 186, 187, 207, 255 },
  [M_COLOR_BORDER] = { 146, 148, 178, 255 },
 };

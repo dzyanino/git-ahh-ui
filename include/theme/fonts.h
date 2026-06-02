@@ -16,6 +16,6 @@ typedef enum : uint16_t {
   M_FONT_MONO_REGULAR = 5,
   M_FONT_MONO_BOLD = 6,
   M_FONT_MONO_ITALIC = 7,
-} FontID; // just for convenience
+} m_font_id_t; // just for convenience
 
 #endif
