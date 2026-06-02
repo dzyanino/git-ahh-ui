@@ -3,6 +3,6 @@
 
 #include "../../theme/colors.h"
 
-void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int disabled);
+void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int* disabled);
 
 #endif

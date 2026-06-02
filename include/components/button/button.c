@@ -4,7 +4,7 @@
 #include "../../utils/clay_string.h"
 #include <raylib.h>
 
-void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int disabled) {
+void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int* disabled) {
   CLAY(
     CLAY_SID(DynamicClayString(id)),
     {
