@@ -2,6 +2,7 @@
 #include "../../../lib/clay.h"
 #include "../../theme/fonts.h"
 #include "../../utils/clay_string.h"
+#include <raylib.h>
 
 void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int disabled) {
   CLAY(
@@ -21,7 +22,9 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
         .padding = {16, 16, 8, 8}
       },
       .cornerRadius = 5,
-      .backgroundColor = Clay_Hovered() ? theme_colors[M_COLOR_DARK_PRIMARY] : theme_colors[color_id]
+      .backgroundColor = Clay_Hovered()
+        ? (SetMouseCursor(MOUSE_CURSOR_POINTING_HAND), theme_colors[M_COLOR_DARK_PRIMARY])
+        : (SetMouseCursor(MOUSE_CURSOR_DEFAULT), theme_colors[color_id])
     }
   ) {
     CLAY_TEXT(DynamicClayString(label), {
