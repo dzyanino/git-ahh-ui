@@ -1,5 +1,3 @@
-# Clay (C Layout) playground
+# clit-ui (clay + git + ui)
 
-Just my attempts a playing with clay (with raylib) (educational purposes)
-
-Please don't mind me
+Trying to make a git GUI
