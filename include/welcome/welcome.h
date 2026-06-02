@@ -1,6 +1,6 @@
 #ifndef WELCOME_H
 #define WELCOME_H
 
-void LayoutWelcome(void);
+void PageWelcome(void);
 
 #endif

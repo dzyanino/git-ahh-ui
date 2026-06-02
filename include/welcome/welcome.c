@@ -2,7 +2,7 @@
 #include "../theme/colors.h"
 #include "../theme/fonts.h"
 
-void LayoutWelcome() {
+void PageWelcome() {
   CLAY(
     CLAY_ID("welcome"),
     {
@@ -28,7 +28,8 @@ void LayoutWelcome() {
             .height = CLAY_SIZING_FIXED(200)
           },
           .childAlignment = {
-            .x = CLAY_ALIGN_X_CENTER
+            .x = CLAY_ALIGN_X_CENTER,
+            .y = CLAY_ALIGN_Y_CENTER
           },
           .childGap = 4,
           .padding = CLAY_PADDING_ALL(16)

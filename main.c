@@ -10,7 +10,7 @@
 #include "include/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
-  printf("[ERROR BRO]===>%s\n", error_data.errorText.chars);
+  printf("[ERROR BRO]===> %s\n", error_data.errorText.chars);
   exit(1);
 } // make an error handler to give it to clay initializer so that i can debug (or catch probably) errors better
 
@@ -78,7 +78,7 @@ int main(void) {
           .childGap = 16 },
         .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
     ) {
-      LayoutWelcome();
+      PageWelcome();
     }
 
     Clay_RenderCommandArray render_commands = Clay_EndLayout(delta_time);
