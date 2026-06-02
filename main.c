@@ -1,4 +1,3 @@
-#include <stdio.h>
 #define CLAY_IMPLEMENTATION // ok so first the clay implementation macro
 
 #include "lib/clay.h" // then import clay just after
@@ -67,40 +66,39 @@ int main(void) {
 
     Vector2 mouse_position = GetMousePosition();
     Vector2 scroll_delta = GetMouseWheelMoveV();
-
     Clay_SetPointerState(
       (Clay_Vector2) {mouse_position.x, mouse_position.y},
-      IsMouseButtonDown(0)
+      IsMouseButtonDown(MOUSE_LEFT_BUTTON)
     );
     Clay_UpdateScrollContainers(
       true,
       (Clay_Vector2) {scroll_delta.x, scroll_delta.y},
       delta_time
-    );
+    ); // mouse position and click tracking
 
     Clay_BeginLayout();
     // the layouts (ui hierarchy) should be put between here and `Clay_EndLayout`
 
-    CLAY(
-      CLAY_ID("main-container"),
-      { .layout = {
-          .sizing = {
-            .width = CLAY_SIZING_GROW(0),
-            .height = CLAY_SIZING_GROW(0) },
-          .padding = CLAY_PADDING_ALL(16),
-          .childGap = 16 },
-        .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
-    ) {
-      PageWelcome();
-    }
+      CLAY(
+        CLAY_ID("main-container"),
+        { .layout = {
+            .sizing = {
+              .width = CLAY_SIZING_GROW(0),
+              .height = CLAY_SIZING_GROW(0) },
+            .padding = CLAY_PADDING_ALL(16),
+            .childGap = 16 },
+          .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
+      ) {
+        PageWelcome();
+      }
 
     Clay_RenderCommandArray render_commands = Clay_EndLayout(delta_time);
     // those layouts will then be computed as raw render commands that any renderer should be able to understand
     // as long as there is a translation layer for them
 
     BeginDrawing();
-    ClearBackground(GREEN); // another background behind clay to see the space between clay's ui and raylib's
-    Clay_Raylib_Render(render_commands, fonts); // then render the commands with raylib, with the corresponding font
+      ClearBackground(GREEN); // another background behind clay to see the space between clay's ui and raylib's
+      Clay_Raylib_Render(render_commands, fonts); // then render the commands with raylib, with the corresponding font
     EndDrawing();
   }
 }
