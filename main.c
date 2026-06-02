@@ -7,7 +7,7 @@
 #include "include/theme/colors.h"
 #include "include/theme/fonts.h"
 
-#include "include/welcome/welcome.h"
+#include "include/pages/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
   printf("[ERROR BRO]===> %s\n", error_data.errorText.chars);
