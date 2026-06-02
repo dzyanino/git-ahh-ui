@@ -65,6 +65,19 @@ int main(void) {
       .width = GetScreenWidth(),
       .height = GetScreenHeight() }); // update the layout every frame to match the current window's dimensions
 
+    Vector2 mouse_position = GetMousePosition();
+    Vector2 scroll_delta = GetMouseWheelMoveV();
+
+    Clay_SetPointerState(
+      (Clay_Vector2) {mouse_position.x, mouse_position.y},
+      IsMouseButtonDown(0)
+    );
+    Clay_UpdateScrollContainers(
+      true,
+      (Clay_Vector2) {scroll_delta.x, scroll_delta.y},
+      delta_time
+    );
+
     Clay_BeginLayout();
     // the layouts (ui hierarchy) should be put between here and `Clay_EndLayout`
 
