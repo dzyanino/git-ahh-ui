@@ -23,12 +23,18 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
       },
       .cornerRadius = 5,
       .backgroundColor = Clay_Hovered()
-        ? (SetMouseCursor(MOUSE_CURSOR_POINTING_HAND), theme_colors[M_COLOR_DARK_PRIMARY])
+        ? (*disabled)
+          ? (SetMouseCursor(MOUSE_CURSOR_NOT_ALLOWED), theme_colors[M_COLOR_ACCENT])
+          : (SetMouseCursor(MOUSE_CURSOR_POINTING_HAND), theme_colors[M_COLOR_DARK_PRIMARY])
         : (SetMouseCursor(MOUSE_CURSOR_DEFAULT), theme_colors[color_id])
     }
   ) {
     CLAY_TEXT(DynamicClayString(label), {
-      .fontId = M_FONT_SEMIBOLD, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_WHITE]
+      .fontId = M_FONT_SEMIBOLD,
+      .fontSize = 18,
+      .textColor = (*disabled)
+        ? theme_colors[M_COLOR_TEXT_DIMMED]
+        : theme_colors[M_COLOR_TEXT_WHITE]
     });
   }
 }

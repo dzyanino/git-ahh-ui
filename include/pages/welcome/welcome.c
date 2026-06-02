@@ -4,6 +4,11 @@
 #include "../../components/button/button.h"
 
 void PageWelcome() {
+  int first, second;
+
+  first = 0;
+  second = 0;
+
   CLAY(
     CLAY_ID("welcome"),
     {
@@ -46,7 +51,8 @@ void PageWelcome() {
         .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIMMED]
       });
       CLAY(CLAY_ID("welcome-space"), {.layout = {.sizing = {.height = CLAY_SIZING_FIXED(24)}}}) {};
-      ComponentButton("welcome-open-repo", "Open repo", 1, M_COLOR_PRIMARY, 1);
+      ComponentButton("welcome-open-repo", "Open repo", 1, M_COLOR_PRIMARY, &first);
+      // ComponentButton("welcome-open-repo-test", "Test", 1, M_COLOR_PRIMARY, &second);
     }
   }
 }
