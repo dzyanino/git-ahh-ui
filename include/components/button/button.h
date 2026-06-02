@@ -1,6 +1,8 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-void ComponentButton(char* id, char* label, int variant, int color, int* disabled);
+#include "../../theme/colors.h"
+
+void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int disabled);
 
 #endif

@@ -1,6 +1,7 @@
 #include "welcome.h"
 #include "../theme/colors.h"
 #include "../theme/fonts.h"
+#include "../components/button/button.h"
 
 void PageWelcome() {
   CLAY(
@@ -42,8 +43,10 @@ void PageWelcome() {
         .fontId = M_FONT_DISPLAY_BOLD, .fontSize = 24, .textColor = theme_colors[M_COLOR_TEXT_WHITE]
       });
       CLAY_TEXT(CLAY_STRING("Open one to get started"), {
-        .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIM]
+        .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIMMED]
       });
+      CLAY(CLAY_ID("welcome-space"), {.layout = {.sizing = {.height = CLAY_SIZING_FIXED(40)}}}) {};
+      ComponentButton("welcome-open-repo", "Open repo", 1, M_COLOR_PRIMARY, 1);
     }
   }
 }

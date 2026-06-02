@@ -1,9 +1,11 @@
 #include "button.h"
 #include "../../../lib/clay.h"
+#include "../../theme/fonts.h"
+#include <string.h>
 
-void ComponentButton(char* id, char* label, int variant, int color, int* disabled) {
+void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int disabled) {
   CLAY(
-    CLAY_ID("button"),
+    CLAY_SID(((Clay_String) {.isStaticallyAllocated = false, .length = strlen(id), .chars = id})),
     {
       .layout = {
         .sizing = {
@@ -19,5 +21,9 @@ void ComponentButton(char* id, char* label, int variant, int color, int* disable
         .padding = CLAY_PADDING_ALL(4)
       }
     }
-  ) {}
+  ) {
+    CLAY_TEXT(((Clay_String) {.isStaticallyAllocated = false, .length = strlen(label), .chars = label}), {
+      .fontId = M_FONT_SEMIBOLD, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_WHITE]
+    });
+  }
 }
