@@ -6,16 +6,11 @@
 #include "include/theme/colors.h"
 #include "include/theme/fonts.h"
 
-#include "include/welcome/welcome.h"
+#include "include/pages/welcome/welcome.h"
 
 void HandleClayErrors(Clay_ErrorData error_data) {
-  printf("%s", error_data.errorText.chars);
-  switch (error_data.errorType) {
-    case CLAY_ERROR_TYPE_INTERNAL_ERROR:
-      printf("Internal error le baba");
-    default:
-      printf("\n====\nJEREO FA MISY RAHA TSY MAZAVA\n====\n");
-  }
+  printf("[ERROR BRO]===> %s\n", error_data.errorText.chars);
+  exit(1);
 } // make an error handler to give it to clay initializer so that i can debug (or catch probably) errors better
 
 /*
@@ -69,29 +64,43 @@ int main(void) {
       .width = GetScreenWidth(),
       .height = GetScreenHeight() }); // update the layout every frame to match the current window's dimensions
 
+    Vector2 mouse_position = GetMousePosition();
+    Vector2 scroll_delta = GetMouseWheelMoveV();
+    Clay_SetPointerState(
+      (Clay_Vector2) {mouse_position.x, mouse_position.y},
+      IsMouseButtonDown(MOUSE_LEFT_BUTTON)
+    );
+    Clay_UpdateScrollContainers(
+      true,
+      (Clay_Vector2) {scroll_delta.x, scroll_delta.y},
+      delta_time
+    );  // mouse position and click tracking
+
+    SetMouseCursor(MOUSE_CURSOR_DEFAULT); // to prevent overriding in the button component cursor change
+
     Clay_BeginLayout();
     // the layouts (ui hierarchy) should be put between here and `Clay_EndLayout`
 
-    CLAY(
-      CLAY_ID("main-container"),
-      { .layout = {
-          .sizing = {
-            .width = CLAY_SIZING_GROW(0),
-            .height = CLAY_SIZING_GROW(0) },
-          .padding = CLAY_PADDING_ALL(16),
-          .childGap = 16 },
-        .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
-    ) {
-      LayoutWelcome();
-    }
+      CLAY(
+        CLAY_ID("main-container"),
+        { .layout = {
+            .sizing = {
+              .width = CLAY_SIZING_GROW(0),
+              .height = CLAY_SIZING_GROW(0) },
+            .padding = CLAY_PADDING_ALL(16),
+            .childGap = 16 },
+          .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
+      ) {
+        PageWelcome();
+      }
 
     Clay_RenderCommandArray render_commands = Clay_EndLayout(delta_time);
     // those layouts will then be computed as raw render commands that any renderer should be able to understand
     // as long as there is a translation layer for them
 
     BeginDrawing();
-    ClearBackground(GREEN); // another background behind clay to see the space between clay's ui and raylib's
-    Clay_Raylib_Render(render_commands, fonts); // then render the commands with raylib, with the corresponding font
+      ClearBackground(GREEN); // another background behind clay to see the space between clay's ui and raylib's
+      Clay_Raylib_Render(render_commands, fonts); // then render the commands with raylib, with the corresponding font
     EndDrawing();
   }
 }

@@ -1,15 +1,13 @@
-
 CC = gcc
-
 CFLAGS = -Wall -Wextra -std=c99
-
 LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt
 
-TARGET = build/main
-
+TARGET_DIR = build
+TARGET = $(TARGET_DIR)/main
 SRC = main.c $(shell find include -name "*.c")
 
 $(TARGET): $(SRC)
+	mkdir -p $(TARGET_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
 clean:

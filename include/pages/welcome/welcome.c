@@ -1,8 +1,22 @@
 #include "welcome.h"
-#include "../theme/colors.h"
-#include "../theme/fonts.h"
+#include "../../theme/colors.h"
+#include "../../theme/fonts.h"
+#include "../../components/button/button.h"
+#include <stdio.h>
 
-void LayoutWelcome() {
+void FirstTest() {
+  printf("\tFIRST\n");
+}
+void SecondTest() {
+  printf("\tSECOND\n");
+}
+
+void PageWelcome() {
+  int first, second;
+
+  first = 1;
+  second = 1;
+
   CLAY(
     CLAY_ID("welcome"),
     {
@@ -28,7 +42,8 @@ void LayoutWelcome() {
             .height = CLAY_SIZING_FIXED(200)
           },
           .childAlignment = {
-            .x = CLAY_ALIGN_X_CENTER
+            .x = CLAY_ALIGN_X_CENTER,
+            .y = CLAY_ALIGN_Y_CENTER
           },
           .childGap = 4,
           .padding = CLAY_PADDING_ALL(16)
@@ -41,8 +56,11 @@ void LayoutWelcome() {
         .fontId = M_FONT_DISPLAY_BOLD, .fontSize = 24, .textColor = theme_colors[M_COLOR_TEXT_WHITE]
       });
       CLAY_TEXT(CLAY_STRING("Open one to get started"), {
-        .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIM]
+        .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIMMED]
       });
+      CLAY(CLAY_ID("welcome-space"), {.layout = {.sizing = {.height = CLAY_SIZING_FIXED(24)}}}) {};
+      ComponentButton("welcome-open-repo", "Open repo", M_VARIANT_SOLID, M_COLOR_PRIMARY, &first, &FirstTest);
+      ComponentButton("welcome-open-repo-test", "Test", M_VARIANT_OUTLINE, M_COLOR_PRIMARY, &second, &SecondTest);
     }
   }
 }

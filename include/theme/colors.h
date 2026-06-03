@@ -13,10 +13,10 @@ typedef enum : uint16_t {
   M_COLOR_DARK_BACKGROUND = 5,
 
   M_COLOR_TEXT_WHITE = 6,
-  M_COLOR_TEXT_DIM = 7,
+  M_COLOR_TEXT_DIMMED = 7,
 
   M_COLOR_BORDER = 8,
-} ColorID;
+} m_color_id_t;
 
 extern Clay_Color theme_colors[];
 
