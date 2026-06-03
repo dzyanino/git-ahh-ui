@@ -74,7 +74,9 @@ int main(void) {
       true,
       (Clay_Vector2) {scroll_delta.x, scroll_delta.y},
       delta_time
-    ); // mouse position and click tracking
+    );  // mouse position and click tracking
+
+    SetMouseCursor(MOUSE_CURSOR_DEFAULT); // to prevent overriding in the button component cursor change
 
     Clay_BeginLayout();
     // the layouts (ui hierarchy) should be put between here and `Clay_EndLayout`

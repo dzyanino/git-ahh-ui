@@ -33,9 +33,11 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
       .cornerRadius = 5,
       .backgroundColor = Clay_Hovered()
         ? (*disabled)
-          ? (SetMouseCursor(MOUSE_CURSOR_NOT_ALLOWED), theme_colors[M_COLOR_ACCENT])
+          ? (SetMouseCursor(MOUSE_CURSOR_NOT_ALLOWED), theme_colors[M_COLOR_BORDER])
           : (SetMouseCursor(MOUSE_CURSOR_POINTING_HAND), theme_colors[M_COLOR_DARK_PRIMARY])
-        : (SetMouseCursor(MOUSE_CURSOR_DEFAULT), theme_colors[color_id])
+        : (*disabled)
+          ? theme_colors[M_COLOR_BORDER]
+          : theme_colors[color_id]
     }
   ) {
     if (!(*disabled)) Clay_OnHover(HandleClick, callback);
