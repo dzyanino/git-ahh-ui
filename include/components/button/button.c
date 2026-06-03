@@ -3,8 +3,17 @@
 #include "../../theme/fonts.h"
 #include "../../utils/clay_string.h"
 #include <raylib.h>
+#include <stdio.h>
 
-void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int* disabled) {
+void HandleClick(Clay_ElementId element_id, Clay_PointerData pointer_info, void *user_data) {
+  if (pointer_info.state == CLAY_POINTER_DATA_PRESSED_THIS_FRAME) {
+    printf("Nice it works\n");
+    void (*callback)() = user_data;
+    if (callback) callback();
+  }
+}
+
+void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, int* disabled, void (*callback)()) {
   CLAY(
     CLAY_SID(DynamicClayString(id)),
     {
@@ -29,6 +38,7 @@ void ComponentButton(char* id, char* label, int variant, m_color_id_t color_id, 
         : (SetMouseCursor(MOUSE_CURSOR_DEFAULT), theme_colors[color_id])
     }
   ) {
+    if (!(*disabled)) Clay_OnHover(HandleClick, callback);
     CLAY_TEXT(DynamicClayString(label), {
       .fontId = M_FONT_SEMIBOLD,
       .fontSize = 18,
