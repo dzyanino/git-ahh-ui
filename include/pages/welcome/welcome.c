@@ -4,18 +4,12 @@
 #include "../../components/button/button.h"
 #include <stdio.h>
 
-void FirstTest() {
+void OpenFirstRepo() {
   printf("\tFIRST\n");
-}
-void SecondTest() {
-  printf("\tSECOND\n");
 }
 
 void PageWelcome() {
-  int first, second;
-
-  first = 1;
-  second = 1;
+  int is_open_repo_button_disabled = 0;
 
   CLAY(
     CLAY_ID("welcome"),
@@ -59,8 +53,7 @@ void PageWelcome() {
         .fontId = M_FONT_REGULAR, .fontSize = 18, .textColor = theme_colors[M_COLOR_TEXT_DIMMED]
       });
       CLAY(CLAY_ID("welcome-space"), {.layout = {.sizing = {.height = CLAY_SIZING_FIXED(24)}}}) {};
-      ComponentButton("welcome-open-repo", "Open repo", M_VARIANT_SOLID, M_COLOR_PRIMARY, &first, &FirstTest);
-      ComponentButton("welcome-open-repo-test", "Test", M_VARIANT_OUTLINE, M_COLOR_PRIMARY, &second, &SecondTest);
+      ComponentButton("welcome-open-repo", "Open repo", M_VARIANT_SOLID, M_COLOR_PRIMARY, &is_open_repo_button_disabled, &OpenFirstRepo);
     }
   }
 }
