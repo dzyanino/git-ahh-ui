@@ -1,4 +1,4 @@
-# clit-ui (clay + git + ui)
+# git-ahh-ui
 
 Trying to make a git GUI
 
