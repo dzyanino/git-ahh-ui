@@ -83,13 +83,17 @@ int main(void) {
 
       CLAY(
         CLAY_ID("main-container"),
-        { .layout = {
+        {
+          .layout = {
             .sizing = {
               .width = CLAY_SIZING_GROW(0),
-              .height = CLAY_SIZING_GROW(0) },
+              .height = CLAY_SIZING_GROW(0)
+            },
             .padding = CLAY_PADDING_ALL(16),
-            .childGap = 16 },
-          .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND] }
+            .childGap = 16,
+          },
+          .backgroundColor = theme_colors[M_COLOR_DARK_BACKGROUND]
+        }
       ) {
         PageWelcome();
       }

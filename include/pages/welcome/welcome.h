@@ -1,8 +1,7 @@
 #ifndef WELCOME_H
 #define WELCOME_H
 
-void FirstTest();
-void SecondTest();
+void OpenFirstRepo();
 
 void PageWelcome(void);
 
